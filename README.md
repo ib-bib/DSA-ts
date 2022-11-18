@@ -1,5 +1,15 @@
 # DSA-ts
 
+Hello and welcome to my Data Structures & Algorithms in TypeScript repository. 
+
+This repository will be home to all of my code submissions for the course on Data Structures and Algorithms by the IEEE SusTech SB Programming Team
+
+<ul>
+  <li> <a href="https://github.com/ib-bib/DSA-ts#task-1-the-stack-data-structure"> Stack submission </a> </li>
+ <!-- <li> <a href="https://github.com/ib-bib/DSA-ts#task-2-the-queue-data-structure"> Queue submission </a> </li> -->
+</ul>
+
+
 ## Task 1: The Stack Data Structure
 
 The **stack** data structure works like a pile of plates, each placed on top of another. 
@@ -83,3 +93,6 @@ peek() {
 
 ``` isEmpty() { return counter EQUALS -1 } ```
 <hr />
+<!--
+## Task 2: The Queue Data Structure
+-->
