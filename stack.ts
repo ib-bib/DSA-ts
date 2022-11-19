@@ -31,5 +31,5 @@ const isEmpty = () => {
 }
 
 const isFull = () => {
-    return stackTop === stackCap;
+    return stackTop + 1 === stackCap;
 }
