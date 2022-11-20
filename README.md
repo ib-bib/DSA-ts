@@ -100,7 +100,7 @@ peek() {
 
 The **queue** data structure works like a line at a bakery. First person to get in line, is the first person who is served.
 
-Once again, I use an array implementation to make my **queue** data structure. 
+Once again, I use an array implementation to make my **queue**. 
 To do that, I would need to identify where the front of the **queue** is, and where the end (or rear) of the **queue** is.
 
 Meaning, this time we need two variables to keep track of instead of one like we did with the **stack**.
@@ -172,8 +172,6 @@ isEmpty() { return front EQUALS -1 }
 ```
 isFull() { return rear + 1 EQUALS QueueCapacity }
 ```
-
-*We say r
 
 To those who tinker a bit with the **queue**, you may come to notice that if you fill a **queue**, then dequeue a bunch of items (even all of them), you will still be unable to enqueue more items. Which sounds very antithetical to the whole point of a line. You wait your turn, sooner or later whoever is in front of you will leave and you will be able to get your turn. Moreover, it sounds so nonsensical that your **queue** would be both empty and full at the same time.
 
