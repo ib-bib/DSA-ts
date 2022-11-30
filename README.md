@@ -7,6 +7,7 @@ This repository will be home to all of my code submissions for the course on Dat
 <ul>
   <li> <a href="https://github.com/ib-bib/DSA-ts#task-1-the-stack-data-structure"> Stack submission </a> </li>
   <li> <a href="https://github.com/ib-bib/DSA-ts#task-2-the-queue-data-structure"> Queue submission </a> </li>
+  <li> <a href="https://github.com/ib-bib/DSA-ts#task-3-the-linked-list-data-structure"> Linked List submission </a> </li>
 </ul>
 
 
@@ -209,8 +210,34 @@ dequeue() {
 
 ```isFull() { return counter EQUALS QueueCapacity }```
 
-```isFull() { return counter EQUALS 0 }```
+```isEmpty() { return counter EQUALS 0 }```
 
 Thank you for reading :smile: this one was quite lengthy
 
 <hr />
+
+## Task 3: The Linked List Data Structure
+
+<!--
+This will be the longest to explain, and I'm glad it's the last. Strap in for a long haul.
+
+For starters, a linked list is like a series of beads connected by a string. 
+Most beads are connected by a circular string, such that the last bead and the first bead can touch.
+Such a structure is called a "doubly linked list", we aren't dealing wit that here. We're dealing with a "singly linked list", imagine the last bead cannot touh the first bead, and no bead can touch the bead to its left. It's just a linear connection in one direction, and the only way to traverse it is one bead at a time starting with the leftmost bead.
+
+In our jargon-lingo-terminology we use the fancy name of **"nodes"** to refer to these beads, and in our implementation we maintain a reference in each node to point to the node after it. Of course this won't be a data structure if there wasn't any data in it, so each node also contains a value that we insert.
+
+Typically, this will look like a small class that defines these two fields. However, the reference will be ```null``` until we actually have another node to point to. Meaning, our code should look like this to construct a node:
+
+```
+class Node {
+  constructor(data) {
+    this.data = data
+    this.next = null
+  }
+}
+```
+
+Now, onto the list itself. Regarding the three basic operations, insertion is generally at the start or end. Deletion is typically just done at the start, like the queue. Retrieval is done by traversing from the start and onwards. Any algorithm that inserts into/deletes from the middle of the list uses traversal approach of retrieval. So, given we care about the start and end, we should maintain two references to point to the first node and the last node in the list. These references are commonly, cleverly known as ```head``` and ```tail```.
+
+-->
