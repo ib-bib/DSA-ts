@@ -8,6 +8,7 @@ This repository will be home to all of my code submissions for the course on Dat
   <li> <a href="https://github.com/ib-bib/DSA-ts#task-1-the-stack-data-structure"> Stack submission </a> </li>
   <li> <a href="https://github.com/ib-bib/DSA-ts#task-2-the-queue-data-structure"> Queue submission </a> </li>
   <li> <a href="https://github.com/ib-bib/DSA-ts#task-3-the-linked-list-data-structure"> Linked List submission </a> </li>
+  <li> <a href="https://github.com/ib-bib/DSA-ts#task-4-add-two-large-numbers"> Adding two large numbers </a> </li>
 </ul>
 
 
@@ -218,9 +219,6 @@ Thank you for reading :smile: this one was quite lengthy
 
 ## Task 3: The Linked List Data Structure
 
-<!--
-This will be the longest to explain, and I'm glad it's the last. Strap in for a long haul.
-
 For starters, a linked list is like a series of beads connected by a string. 
 Most beads are connected by a circular string, such that the last bead and the first bead can touch.
 Such a structure is called a "doubly linked list", we aren't dealing wit that here. We're dealing with a "singly linked list", imagine the last bead cannot touh the first bead, and no bead can touch the bead to its left. It's just a linear connection in one direction, and the only way to traverse it is one bead at a time starting with the leftmost bead.
@@ -238,6 +236,121 @@ class Node {
 }
 ```
 
-Now, onto the list itself. Regarding the three basic operations, insertion is generally at the start or end. Deletion is typically just done at the start, like the queue. Retrieval is done by traversing from the start and onwards. Any algorithm that inserts into/deletes from the middle of the list uses traversal approach of retrieval. So, given we care about the start and end, we should maintain two references to point to the first node and the last node in the list. These references are commonly, cleverly known as ```head``` and ```tail```.
+Now, onto the list itself. Regarding the three basic operations, insertion is generally at the start or end. Deletion is typically just done at the start, like the queue. Retrieval is done by traversing from the start and onwards. Any algorithm that inserts into/deletes from the middle of the list uses the traversal approach of retrieval. So, given we primarily care about the start and end, we should maintain two references to point to the first node and the last node in the list. These references are commonly, cleverly known as ```head``` and ```tail```. Another thing to note is that this structure will either be filled by a capacity we explicitly declare, or by running out of RAM. Since we'd probably like to avoid the second scenario, we should also maintain a counter of nodes.
 
--->
+Our algorithms for these basic operations would look something like this:
+
+1. Insertion:
+
+```
+enlistAtStart(data) {
+  if (list isFull) {
+    return NoMoreSpaceError
+  }
+  if (list isEmpty) {
+    head = tail = new Node(data)
+  } else {
+    placeholder <- new Node(data)
+    placeholder.next = head
+    head = placeholder
+  }
+  counter <- counter + 1
+}
+```
+
+```
+enlistAtEnd(data) {
+  if (list isFull) {
+    return NoMoreSpaceError
+  }
+  if (list isEmpty) {
+    tail.next = new Node(data)
+    tail = tail.next
+  }
+  counter <- counter + 1
+}
+```
+2. Deletion
+
+```
+delistFromStart() {
+  if (list isEmpty) {
+    return NoNodesInListError
+  }
+  head = head.next
+  counter <- counter - 1
+}
+```
+
+3. Retrieval
+
+```
+printList() {
+  str <- ''
+  while (head is not NULL) {
+    str <- str + head.value
+    head = head.next
+  }
+  return str
+}
+```
+*It's worth noting that the list will be as good as empty after you retrieve all the nodes, as there will be no references to any of them. If your isEmpty() function checks whether or not your counter is at 0, you could set your counter to 0 before the return statement.*
+
+Of course, we can't forget our good friends isFull() and isEmpty():
+```
+isFull() {
+  return counter EQUALS MaxCapacity
+}
+```
+
+```
+isEmpty() {
+  return head is NULL
+}
+```
+
+## Task 4: Add Two Large Numbers
+
+Now, onto the last task. A function that receieves two large numbers represented as strings, and perform basic addition on them to display their sum.
+
+I used a linked list to store the result, though admittedly I don't know if it's the best use for it.
+
+The first thing we should do is think about how the computer will navigate the string, when we perform addition, we go from right to left. Meaning you either loop through the strings from the last index(length - 1) and decrement until you reach zero (break at -1), or you reverse your strings and loop like you're used to. If you choose the latter, then reverse your string
+
+The second thing to do is consider the possibly varying lengths of the strings. If one string is longer than the other, you should find a way to align them properly as you see fit. In my approach, I fill all the empty spaces in the shorter string with zeros. Say we have the values '999' and '1', my '1' would actually look like this '001'
+
+Now, to perform the addition. The way we add is by getting the sum of the aligned digits *in addition to any carry*, and placing that sum mod 10 in our result. Then *carrying* our carry over to the next aligned digits, repeat until we reach no aligned digits, in which case we simply place the carry as is in our result. Given the carry must be an integer, we truncate the result of the sum's division by 10. In the end, given we reversed the strings at the start, we should reverse the result to display it as the actual number.
+
+With this approach, the algorithm will look something like this:
+
+```
+addTwoLargeNumbers(firstString, secondString) {
+  firstString <- reverse(firstString)
+  secondString <- reverse(secondString)
+  
+  if (length(firstString) GREATER THAN length(secondString) {
+    differenceInLengths <- length(firstString) - length(secondString)
+    secondString <- fillEmptyWithZero(secondString, differenceInLengths)
+  }
+  if (length(firstString) LESS THAN length(secondString) {
+    differenceInLengths <- length(secondString) - length(firstString)
+    firstString <- fillEmptyWithZero(firstString, differenceInLengths)
+  }
+  
+  carry <- 0
+  
+  for i <- 0 to length(firstString) - 1 {
+    sum <- Number(firstString[i]) + Number(secondString[i]) + carry
+    list.enlistAtEnd(sum % 10)
+    carry <- Truncate(sum / 10)
+  } 
+  
+  if (carry GREATER THAN 0) {
+    list.enlistAtEnd(carry)
+  }
+  
+  return reverse(list.printList())
+}
+```
+
+With that, I conclude my submissions for this fun little course. Thank you :)
